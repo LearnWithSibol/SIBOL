@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>SIBOL</title>
+  <meta name="description" content="">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="/images/bear.png">
+  <style>
+    * {
+      font-family: Arial, sans-serif;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    header {
+      top: 0;
+      height: 10vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      background-color: white;
+      z-index: 2;
+      box-shadow: 0vw 0.5vh 10px #888888;
+    }
+
+    header img {
+      width: 300px;
+    }
+
+    #menu__toggle {
+      opacity: 0;
+    }
+
+    #menu__toggle:checked+.menu__btn>span {
+      transform: rotate(45deg);
+    }
+
+    #menu__toggle:checked+.menu__btn>span::before {
+      top: 0;
+      transform: rotate(0deg);
+    }
+
+    #menu__toggle:checked+.menu__btn>span::after {
+      top: 0;
+      transform: rotate(90deg);
+    }
+
+    #menu__toggle:checked~.menu__box {
+      left: 80vw !important;
+    }
+
+    .menu__btn {
+      position: fixed;
+      top: 5vh;
+      left: 95vw;
+      width: 26px;
+      height: 26px;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .menu__btn>span,
+    .menu__btn>span::before,
+    .menu__btn>span::after {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background-color: #5862A3;
+      transition-duration: .25s;
+    }
+
+    .menu__btn>span::before {
+      content: '';
+      top: -8px;
+    }
+
+    .menu__btn>span::after {
+      content: '';
+      top: 8px;
+    }
+
+    .menu__box {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 100%;
+      width: 100vw;
+      height: 100%;
+      margin: 0;
+      padding: 10vh 0;
+      list-style: none;
+      background-color: #F2F2F6;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+      transition-duration: .25s;
+    }
+
+    .menu__item {
+      display: block;
+      padding: 2vh 3vw;
+      color: #333;
+      font-family: 'Roboto', sans-serif;
+      font-size: 3vh;
+      font-weight: 600;
+      text-decoration: none;
+      transition-duration: .25s;
+    }
+
+    .menu__item:hover {
+      background-color: #CFD8DC;
+    }
+
+    .container {
+      width: 100%;
+      margin-top: 10vh;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    .container-navbar {
+      width: 25%;
+      height: 90vh;
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      text-align: center;
+      gap: 5px;
+      border: 5px solid white;
+    }
+
+    .container-navbar a {
+      height: 20%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      background-color: #FF9839;
+      border: 2px solid white;
+    }
+
+    .container-object {
+      width: 75%;
+      height: 100%;
+      margin-left: 25%;
+      padding: 30px;
+    }
+
+    #module_pdf {
+      width: 100%;
+      height: 100%;
+    }
+
+    .active {
+      background-color: #FF8B1F;
+      outline: 3px solid #8F4500;
+      border-radius: 1vh;
+    }
+
+    .container-navbar a:hover {
+      background-color: #FF8B1F;
+    }
+
+    .container-navbar a:active {
+      background-color: #FF8B1F;
+      outline: 3px solid #8F4500;
+      border-radius: 1vh;
+    }
+
+    #rightNavBtn {
+      font-size: 20px;
+      display: none;
+    }
+
+    .quiz {
+      width: 100%;
+    }
+
+    form {
+      width: 100%;
+    }
+
+
+
+    fieldset {
+      border: 0;
+      margin: 2rem 0;
+    }
+
+    fieldset legend {
+      font-weight: 700;
+    }
+
+    .answer__item {
+      background-color: #F2F2F6;
+      border: 2px solid #565FA2;
+      color: #435060;
+      display: block;
+      width: 100%;
+      border-radius: 1rem;
+      cursor: pointer;
+      padding: 0.75rem 1.25rem;
+      margin: 0.25rem 0;
+    }
+
+    /* Hide Radio Buttons and Submit Button */
+    input[type="radio"],
+    button {
+      display: none;
+    }
+
+    /* Any correct answer on any answered question, highlight in light green */
+    :valid .answer__item--is-correct {
+      background-color: #BDDB87
+    }
+
+    /* Show any extra explanatory text */
+    .answer__reveal-text {
+      display: none;
+    }
+
+    :valid .answer__reveal-text {
+      display: block
+    }
+
+    /* Any chosen answer, highlight in red */
+    :checked+.answer__item {
+      color: #ffffff;
+      background-color: #DD4633;
+    }
+
+    /* Any correctly chosen answer, highlight in bright green */
+    :checked+.answer__item--is-correct {
+      background-color: #77A131;
+    }
+
+    /* Show the icon for the selected answer */
+    :checked+.answer__item .answer__icon {
+      display: inline-block
+    }
+
+
+    /* prevent chosing another answer once chosen */
+    :valid {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none
+    }
+
+    :valid+.answer__item {
+      pointer-events: none
+    }
+
+    /* keep track of score */
+    form {
+      counter-reset: quiz-score
+    }
+
+    :checked+.answer__item--is-correct {
+      counter-increment: quiz-score
+    }
+
+    .score:after {
+      content: counter(quiz-score) "/" attr(data-question-count)
+    }
+
+    /* show score once quiz has been completed */
+    .message {
+      width: 100%;
+      padding: 2vh;
+      background-color: #565FA2;
+      color: white;
+      text-align: center;
+      font-size: 4vh;
+      font-weight: 500;
+      font-family: "Arial", serif;
+      border-radius: 1vh;
+      display: none;
+    }
+
+    form:valid .message {
+      display: block
+    }
+
+
+
+    @media only screen and (max-width: 767px) {
+      .menu__btn {
+        top: 5vh;
+        left: 90vw;
+      }
+
+      #menu__toggle:checked~.menu__box {
+        left: 40vw !important;
+      }
+
+      .container-navbar {
+        bottom: 0;
+        width: 50%;
+        height: 90%;
+        justify-content: center;
+      }
+
+      .container-object {
+        width: 100%;
+        margin: 0;
+        flex-direction: row;
+      }
+
+      .container-navbar a {
+        padding: 10px;
+        flex-direction: row;
+        font-size: 1rem;
+      }
+
+      #rightNavBtn {
+        display: block;
+      }
+
+      .container-navbar {
+        right: -200vw;
+        transition: 0.5s ease;
+      }
+
+
+
+    }
+  </style>
+</head>
+
+<body>
+
+
+
+  <header>
+    <i class="fa-solid fa-book-open" id="rightNavBtn"></i>
+    <img src="/images/sibol.png" alt="">
+    <div class="hamburger-menu">
+      <input id="menu__toggle" type="checkbox" />
+      <label class="menu__btn" for="menu__toggle">
+        <span></span>
+      </label>
+      <ul class="menu__box">
+        <li><a class="menu__item" href="index.html">Home</a></li>
+        <li><a class="menu__item" href="team.html#aboutPage">SIBOL</a></li>
+        <li><a class="menu__item" href="team.html#teamPage">Team</a></li>
+        <li><a class="menu__item" href="team.html#contactPage">Contact</a></li>
+
+      </ul>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="container-navbar" id="rightNav">
+
+      <a href="Cell_Theory_PPT.html">
+        <div class="btn">
+          SLIDESHOW
+        </div>
+      </a>
+
+      <a href="Cell_Theory_Module.html">
+        <div class="btn">
+          MODULE
+        </div>
+      </a>
+
+      <a href="#">
+        <div class="btn">
+          VIDEO
+        </div>
+      </a>
+
+      <a href="#" class="active">
+        <div class="btn">
+          QUIZ
+        </div>
+      </a>
+
+      <a href="index.html">
+        <div class="btn">
+          HOME
+        </div>
+      </a>
+
+    </div>
+    <div class="container-object">
+      <div class="quiz">
+        <form method="POST" class="is-not-results">
+          <fieldset>
+            <legend>1. A tool used for observing objects not visible to the naked eye, it has the capability to enlarge
+              tiny objects.</legend>
+            <div class="answers">
+              <div class="answer">
+                <input type="radio" name="answers[0]" id="answer-0-1" value="1" required>
+                <label for="answer-0-1" class="answer__item">
+                  Telescope
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[0]" id="answer-0-2" value="2" required>
+                <label for="answer-0-2" class="answer__item answer__item--is-correct">
+                  Microscope
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[0]" id="answer-0-3" value="3" required>
+                <label for="answer-0-3" class="answer__item">
+                  Barometer
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[0]" id="answer-0-4" value="4" required>
+                <label for="answer-0-4" class="answer__item">
+                  Magnifying Glasses
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>2. Who invented the first compound microscope?</legend>
+            <div class="answers">
+              <div class="answer">
+                <input type="radio" name="answers[1]" id="answer-1-1" value="1" required>
+                <label for="answer-1-1" class="answer__item">
+                  Romans
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[1]" id="answer-1-2" value="2" required>
+                <label for="answer-1-2" class="answer__item">
+                  Robert Hooke
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[1]" id="answer-1-3" value="3" required>
+                <label for="answer-1-3" class="answer__item">
+                  Albert Einstein
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[1]" id="answer-1-4" value="4" required>
+                <label for="answer-1-4" class="answer__item answer__item--is-correct">
+                  Zacharias Janssen
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>3. Anton Van Leeuwenhoek used a handmade microscope and observed single-celled organisms in the pond
+              scum; he then called them _______.</legend>
+            <div class="answers">
+              <div class="answer">
+                <input type="radio" name="answers[2]" id="answer-2-1" value="1" required>
+                <label for="answer-2-1" class="answer__item">
+                  Microorganism
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[2]" id="answer-2-2" value="2" required>
+                <label for="answer-2-2" class="answer__item">
+                  Germs
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[2]" id="answer-2-3" value="3" required>
+                <label for="answer-2-3" class="answer__item answer__item--is-correct">
+                  Animalcules
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[2]" id="answer-2-4" value="4" required>
+                <label for="answer-2-4" class="answer__item">
+                  Bacteria
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>4. The study of cells, known as _________, investigates cells' structure, functions, and
+              interactions within organisms.</legend>
+            <div class="answers">
+              <div class="answer">
+                <input type="radio" name="answers[3]" id="answer-3-1" value="1" required>
+                <label for="answer-3-1" class="answer__item answer__item--is-correct">
+                  Cell Biology
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[3]" id="answer-3-2" value="2" required>
+                <label for="answer-3-2" class="answer__item">
+                  Histology
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[3]" id="answer-3-3" value="3" required>
+                <label for="answer-3-3" class="answer__item">
+                  Cytosol
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[3]" id="answer-3-4" value="4" required>
+                <label for="answer-3-4" class="answer__item">
+                  Zoology
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>5. It is the smallest unit of life and has the ability to replicate independently, forming the basis
+              of life processes.</legend>
+            <div class="answers">
+              <div class="answer">
+                <input type="radio" name="answers[4]" id="answer-4-1" value="1" required>
+                <label for="answer-4-1" class="answer__item answer__item--is-correct">
+                  Cell
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[4]" id="answer-4-2" value="2" required>
+                <label for="answer-4-2" class="answer__item">
+                  Animalcules
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[4]" id="answer-4-3" value="3" required>
+                <label for="answer-4-3" class="answer__item">
+                  Bacteria
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[4]" id="answer-4-4" value="4" required>
+                <label for="answer-4-4" class="answer__item">
+                  Cellula
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>6. Which statement belongs to the Cell Theory?</legend>
+            <div class="answers">
+              <div class="answer">
+                <input type="radio" name="answers[5]" id="answer-5-1" value="1" required>
+                <label for="answer-5-1" class="answer__item">
+                  Cell contains hereditary information (RNA) which is passed on from cell to cell during cell division.
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[5]" id="answer-5-2" value="2" required>
+                <label for="answer-5-2" class="answer__item">
+                  All cells are varies in chemical composition and metabolic activities
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[5]" id="answer-5-3" value="3" required>
+                <label for="answer-5-3" class="answer__item">
+                  Cell is not necessary for life.
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[5]" id="answer-5-4" value="4" required>
+                <label for="answer-5-4" class="answer__item answer__item--is-correct">
+                  All organisms are composed of one or more cells
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>7. He stated that all animal tissues are composed of cells.</legend>
+            <div class="answers">
+              <div class="answer">
+                <input type="radio" name="answers[6]" id="answer-6-1" value="1" required>
+                <label for="answer-6-1" class="answer__item answer__item--is-correct ">
+                  Theodor Schwann
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[6]" id="answer-6-2" value="2" required>
+                <label for="answer-6-2" class="answer__item">
+                  Matthias Schleiden
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[6]" id="answer-6-3" value="3" required>
+                <label for="answer-6-3" class="answer__item">
+                  Anton van leeuwenhoek
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[6]" id="answer-6-4" value="4" required>
+                <label for="answer-6-4" class="answer__item">
+                  Robert Remak
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>8. He concluded that all plant parts are made of cells.</legend>
+            <div class="answers">
+              <div class="answer">
+                <input type="radio" name="answers[7]" id="answer-7-1" value="1" required>
+                <label for="answer-7-1" class="answer__item">
+                  Theodor Schwann
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[7]" id="answer-7-2" value="2" required>
+                <label for="answer-7-2" class="answer__item answer__item--is-correct">
+                  Matthias Schleiden
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[7]" id="answer-7-3" value="3" required>
+                <label for="answer-7-3" class="answer__item">
+                  Anton van leeuwenhoek
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[7]" id="answer-7-4" value="4" required>
+                <label for="answer-7-4" class="answer__item">
+                  Rudolf Virchow
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>9. He concluded that cells must arise from preexisting cells.</legend>
+            <div class="answers">
+              <div class="answer">
+                <input type="radio" name="answers[8]" id="answer-8-1" value="1" required>
+                <label for="answer-8-1" class="answer__item">
+                  Anton van leeuwenhoek
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[8]" id="answer-8-2" value="2" required>
+                <label for="answer-8-2" class="answer__item answer__item--is-correct">
+                  Rudolf Virchow
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[8]" id="answer-8-3" value="3" required>
+                <label for="answer-8-3" class="answer__item">
+                  Theodor Schwann
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[8]" id="answer-8-4" value="4" required>
+                <label for="answer-8-4" class="answer__item">
+                  Matthias Schleiden
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>10. Which statement belongs to the Modern Cell Theory?</legend>
+            <div class="answers">
+              <div class="answer">
+                <input type="radio" name="answers[9]" id="answer-9-1" value="1" required>
+                <label for="answer-9-1" class="answer__item">
+                  All cells are varies in chemical composition and metabolic activities.
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[9]" id="answer-9-2" value="2" required>
+                <label for="answer-9-2" class="answer__item">
+                  All organisms are composed of one or more cells
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[9]" id="answer-9-3" value="3" required>
+                <label for="answer-9-3" class="answer__item answer__item--is-correct">
+                  Cell contains hereditary information (DNA) which is passed on from cell to cell during cell division.
+                </label>
+              </div>
+              <div class="answer">
+                <input type="radio" name="answers[9]" id="answer-9-4" value="4" required>
+                <label for="answer-9-4" class="answer__item">
+                  Cell is not necessary for life.
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
+
+          <div class="message">
+            <p>Your Score: <b><span class="score" data-question-count="10"></span></b></p>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+
+    var navBarButton = document.getElementById("rightNavBtn");
+    var navBar = document.getElementById("rightNav");
+
+    var isOpen = false;
+
+    navBarButton.addEventListener("click", function () {
+      if (!isOpen) {
+        navBar.style.left = "0";
+      } else {
+        navBar.style.left = "-100%";
+      }
+      isOpen = !isOpen;
+    });
+
+  </script>
+</body>
+
+</html>

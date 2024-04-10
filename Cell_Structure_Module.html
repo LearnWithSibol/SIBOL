@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SIBOL</title>
+        <meta name="description" content="">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="/images/bear.png">
+        <style>
+            *{
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html{
+  scroll-behavior: smooth;
+  overflow-y: hidden;
+}
+
+header{
+    top: 0;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    z-index: 2;
+    box-shadow: 0vw 0.5vh 10px #888888;
+}
+
+header img{
+    width: 300px;
+}
+
+#menu__toggle {
+    opacity: 0;
+  }
+  #menu__toggle:checked + .menu__btn > span {
+    transform: rotate(45deg);
+  }
+  #menu__toggle:checked + .menu__btn > span::before {
+    top: 0;
+    transform: rotate(0deg);
+  }
+  #menu__toggle:checked + .menu__btn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+  }
+  #menu__toggle:checked ~ .menu__box {
+    left: 80vw !important;
+  }
+  .menu__btn {
+    position: fixed;
+    top: 5vh;
+    left: 95vw;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .menu__btn > span,
+  .menu__btn > span::before,
+  .menu__btn > span::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #5862A3;
+    transition-duration: .25s;
+  }
+  .menu__btn > span::before {
+    content: '';
+    top: -8px;
+  }
+  .menu__btn > span::after {
+    content: '';
+    top: 8px;
+  }
+  .menu__box {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    width: 100vw;
+    height: 100%;
+    margin: 0;
+    padding: 10vh 0;
+    list-style: none;
+    background-color: #F2F2F6;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+    transition-duration: .25s;
+  }
+  .menu__item {
+    display: block;
+    padding: 2vh 3vw;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 3vh;
+    font-weight: 600;
+    text-decoration: none;
+    transition-duration: .25s;
+  }
+  .menu__item:hover {
+    background-color: #CFD8DC;
+  }
+.container{
+    width: 100%;
+    margin-top: 10vh;
+    height: 100vh;
+    display: flex;
+}
+.container-navbar{
+    width: 25%;
+    height: 90vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    gap: 5px;
+    border: 5px solid white;
+}
+.container-navbar a{
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #FF9839;
+      border: 2px solid white;
+}
+.container-object{
+width: 75%;
+height: 100%;
+margin-left: 25%;
+}
+  #module_pdf{
+    width: 100%;
+    height: 100%;
+  }
+  .active{
+    background-color: #FF8B1F;
+    outline: 3px solid #8F4500;
+    border-radius: 1vh;
+  }
+  .container-navbar a:hover{
+    background-color: #FF8B1F;
+  }
+  .container-navbar a:active{
+    background-color: #FF8B1F;
+    outline: 3px solid #8F4500;
+    border-radius: 1vh;
+  }
+  #rightNavBtn{
+    font-size: 20px;
+    display: none;
+  }
+
+
+  @media only screen and (max-width: 767px) {
+    .menu__btn {
+        top: 5vh;
+        left: 90vw;
+    }
+    #menu__toggle:checked ~ .menu__box {
+        left: 40vw !important;
+    }
+    .container-navbar{
+    bottom: 0;
+    width: 50%;
+    height: 90%;
+    justify-content: center;
+}
+.container-object{
+    width: 100%;
+    margin: 0;
+    flex-direction: row;    
+}
+.container-navbar a{
+    padding: 10px;
+    flex-direction: row;
+    font-size: 1rem;
+}
+#rightNavBtn{
+  display: block;
+}
+
+.container-navbar{
+  right: -200vw;
+  transition: 0.5s ease;
+}
+  }
+        </style>
+    </head>
+    <body>
+        
+
+
+        <header>
+          <i class="fa-solid fa-book-open" id="rightNavBtn"></i>
+            <img src="/images/sibol.png" alt="">
+            <div class="hamburger-menu">
+            <input id="menu__toggle" type="checkbox" />
+            <label class="menu__btn" for="menu__toggle">
+                <span></span>
+            </label>
+            <ul class="menu__box">
+                <li><a class="menu__item" href="index.html">Home</a></li>
+                <li><a class="menu__item" href="team.html#aboutPage">SIBOL</a></li>
+                <li><a class="menu__item" href="team.html#teamPage">Team</a></li>
+                <li><a class="menu__item" href="team.html#contactPage">Contact</a></li>
+                
+            </ul>
+        </div>
+        </header>
+        
+        <div class="container">
+
+            <div class="container-navbar" id="rightNav">
+
+                <a href="Cell_Structure_PPT.html">
+                    <div class="btn">
+                        SLIDESHOW
+                    </div>
+                </a>
+
+                <a href="#" class="active">
+                    <div class="btn">
+                        MODULE
+                    </div>
+                </a>
+
+                <a href="#">
+                    <div class="btn">
+                        VIDEO
+                    </div>
+                </a>
+
+                <a href="Cell_Structure_QUIZ.html">
+                    <div class="btn">
+                        QUIZ
+                    </div>
+                </a>
+
+                <a href="index.html">
+                    <div class="btn">
+                        HOME
+                    </div>
+                </a>
+                
+            </div>
+            <div class="container-object">
+                 <object data="cellStructures/Cell Structure Function Module.pdf" type="application/pdf" id="module_pdf"></object>
+            </div>
+        
+        </div>
+
+        
+
+        <script>
+
+var navBarButton = document.getElementById("rightNavBtn");
+    var navBar = document.getElementById("rightNav");
+
+    var isOpen = false;
+
+    navBarButton.addEventListener("click", function(){
+        if (!isOpen) {
+            navBar.style.left = "0";
+        } else {
+            navBar.style.left = "-100%";
+        }
+        isOpen = !isOpen;
+    });
+          
+        </script>
+    </body>
+</html>

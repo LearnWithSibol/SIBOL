@@ -1,0 +1,346 @@
+*{
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden; /* Hide scrollbars */
+}
+
+header{
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    z-index: 2;
+    box-shadow: 0vw 0.5vh 10px #888888;
+}
+
+header img{
+    width: 300px;
+}
+
+#menu__toggle {
+    opacity: 0;
+  }
+  #menu__toggle:checked + .menu__btn > span {
+    transform: rotate(45deg);
+  }
+  #menu__toggle:checked + .menu__btn > span::before {
+    top: 0;
+    transform: rotate(0deg);
+  }
+  #menu__toggle:checked + .menu__btn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+  }
+  #menu__toggle:checked ~ .menu__box {
+    left: 80vw !important;
+  }
+  .menu__btn {
+    position: fixed;
+    top: 5vh;
+    left: 95vw;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .menu__btn > span,
+  .menu__btn > span::before,
+  .menu__btn > span::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #5862A3;
+    transition-duration: .25s;
+  }
+  .menu__btn > span::before {
+    content: '';
+    top: -8px;
+  }
+  .menu__btn > span::after {
+    content: '';
+    top: 8px;
+  }
+  .menu__box {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    width: 100vw;
+    height: 100%;
+    margin: 0;
+    padding: 10vh 0;
+    list-style: none;
+    background-color: #F2F2F6;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+    transition-duration: .25s;
+  }
+  .menu__item {
+    display: block;
+    padding: 2vh 3vw;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 3vh;
+    font-weight: 600;
+    text-decoration: none;
+    transition-duration: .25s;
+  }
+  .menu__item:hover {
+    background-color: #CFD8DC;
+  }
+
+.sb{
+    position: fixed;
+    top: 10vh;
+    width: 100vw;
+    background-color: #F2F2F6;
+    height: 50vh;
+}
+
+#img-bear{
+    position: absolute;
+    left: 2vw;
+    height: 43vh;
+    width: 22vw;
+}
+#img-sibol-logo{
+    position: fixed;
+    top: 14vh;
+    left: 24vw;
+    height: 25vh;
+    width: 31vw;
+}
+#img-leaves{
+    position: fixed;
+    top: 33vh;
+    left: 57vw;
+    height: 10vh;
+    width: 30vw;
+    margin:0;
+}
+
+@keyframes description{
+    0% {color: #434A7B}
+    25% {color: #BF6A1B}
+    50% {color: #BF2F1B}
+    75% {color: #1B75BF}
+    100% {color: #467418}
+}
+
+#description{
+    font-family: "Times New Roman", Times, serif;
+    overflow: auto;
+    color: #434A7B;
+    font-weight: 500;
+    text-align:left;
+    margin-top: 6vh;
+    margin-bottom: 0vh;
+    margin-left: 58vw;
+    margin-right: 7vw;
+    font-size: 3vh;
+}
+
+.container{
+    top: 43vh;
+    background-color: white;
+    position: relative;
+    z-index: 1;
+    width: 100vw;
+    padding: 0vh 5vw;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+    box-shadow: 0vw -0.5vh 10px #888888;
+}
+
+.container-box-title{
+    width: 70%;
+}
+
+.container-box{
+    overflow-x: auto;
+    white-space: nowrap;
+    border: dashed 5px solid yellow;
+    background-color: #F2F2F6;
+    box-shadow: 0vw 0vh 10px inset #888888;
+    
+}
+
+.container-box-child{
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 25px;
+    height: 40vh;
+    width: 35vw;
+    margin: 2.5vw;
+    position: relative;
+    box-shadow: 1vw 2vh 0px #FFD6B0;
+}
+
+.container-box-child img{
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    
+}
+.overlay{
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+    height: 0%;
+    width: 100%;
+    border-radius: 25px;
+    transition: .5s ease;
+    z-index: -2;
+}
+
+.orange{
+    outline: solid #FF8B1F;
+    box-shadow: 1vw 2vh 0px #FFD6B0;
+}
+
+.orange:hover{
+    outline-color: #8F4500;
+    outline-style: double;
+    outline-width: 10px;
+}
+
+.orange:hover .overlay{
+    top: 0%;
+    height: 100%;
+    z-index: 1;
+}
+
+.red:hover .overlay{
+    top: 0%;
+    height: 100%;
+    z-index: 1;
+}
+
+.blue:hover .overlay{
+    top: 0%;
+    height: 100%;
+    z-index: 1;
+}
+
+.green:hover .overlay{
+    top: 0%;
+    height: 100%;
+    z-index: 1;
+}
+
+.red{
+    outline: solid #E1553D;
+    box-shadow: 1vw 2vh 0px #F3BDB3;
+}
+
+.red:hover{
+    outline-color: #9F2D19;
+    outline-style: double;
+    outline-width: 10px;
+}
+
+.blue{
+    outline: solid #568BA2;
+    box-shadow: 1vw 2vh 0px #BBD1DA;
+}
+
+.blue:hover{
+    outline-color: #3F6778;
+    outline-style: double;
+    outline-width: 10px;
+}
+
+.green{
+    outline: solid #769A32;
+    box-shadow: 1vw 2vh 0px #CCDBAF;
+}
+
+.green:hover{
+    outline-color: #526C23;
+    outline-style: double;
+    outline-width: 10px;
+}
+
+footer{
+    text-align: center;
+    padding: 5vh 0vw;
+}
+
+footer span{
+    text-decoration: underline;
+}
+
+
+@media only screen and (min-width: 1024px) and (max-width: 1366px) {
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+
+}
+
+@media only screen and (max-width: 767px) {
+    .sb{
+        height: 20vh;
+    }
+    .container{
+        top: 20vh;
+    }
+    #img-bear{
+        position: absolute;
+        left: 2vw;
+        height: auto;
+        width: 22vw;
+        top: 2vh;
+    }
+    #img-sibol-logo{
+        position: fixed;
+        top: 14vh;
+        left: 30vw;
+        height: auto;
+        width: 31vw;
+    }
+    #img-leaves{
+        position: fixed;
+        top: 18vh;
+        left: 65vw;
+        width: 30vw;
+        margin:0;
+        height: auto;
+    }
+    #description{
+        display: none;
+    }
+    .container-box-child{
+        height: 20vh;
+        width: 70vw;
+        margin: 10vw 5vw;
+    }
+    .container-box-title{
+        width: 100%;
+    }
+
+    .menu__btn {
+        top: 5vh;
+        left: 90vw;
+    }
+    #menu__toggle:checked ~ .menu__box {
+        left: 40vw !important;
+    }
+
+}
+  
