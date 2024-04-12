@@ -1,289 +1,317 @@
-<!--Memory Game-->
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html> 
+<html lang="en"> 
 
-<head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="MemoryGame.css">
-        <title>SIBOL</title>
-        <link rel="icon" type="image/x-icon" href="/images/bear.png">
-        <style>
+<head> 
+	<meta charset="UTF-8"> 
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0"> 
+	<link rel="stylesheet" href="memorycardGame.css"> 
+	<title>Memory Card Game</title> 
+</head> 
 
-*{
-margin:0; 
-padding:0;
-box-sizing:border-box;
-}   
+<body> 
 
-header{
-    top: 0;
-    height: 10vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    width: 100%;
-    background-color: white;
-    z-index: 2;
-    box-shadow: 0vw 0.5vh 10px #888888;
-}
-
-header img{
-    width: 300px;
-}
-
-#menu__toggle {
-    opacity: 0;
-  }
-  #menu__toggle:checked + .menu__btn > span {
-    transform: rotate(45deg);
-  }
-  #menu__toggle:checked + .menu__btn > span::before {
-    top: 0;
-    transform: rotate(0deg);
-  }
-  #menu__toggle:checked + .menu__btn > span::after {
-    top: 0;
-    transform: rotate(90deg);
-  }
-  #menu__toggle:checked ~ .menu__box {
-    left: 80vw !important;
-  }
-  .menu__btn {
-    position: fixed;
-    top: 5vh;
-    left: 95vw;
-    width: 26px;
-    height: 26px;
-    cursor: pointer;
-    z-index: 1;
-  }
-  .menu__btn > span,
-  .menu__btn > span::before,
-  .menu__btn > span::after {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background-color: #5862A3;
-    transition-duration: .25s;
-  }
-  .menu__btn > span::before {
-    content: '';
-    top: -8px;
-  }
-  .menu__btn > span::after {
-    content: '';
-    top: 8px;
-  }
-  .menu__box {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 100%;
-    width: 100vw;
-    height: 100%;
-    margin: 0;
-    padding: 10vh 0;
-    list-style: none;
-    background-color: #F2F2F6;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
-    transition-duration: .25s;
-  }
-  .menu__item {
-    display: block;
-    padding: 2vh 3vw;
-    color: #333;
-    font-family: 'Roboto', sans-serif;
-    font-size: 3vh;
-    font-weight: 600;
-    text-decoration: none;
-    transition-duration: .25s;
-  }
-  .menu__item:hover {
-    background-color: #CFD8DC;
-  }
-
-body{
-  background-color: #F2F2F6;
-}
-
-.container{
-padding:30px;   
-width:380px;
-background:#232534;
-background:#FFF;
-position:absolute;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-border-radius:5px;
-padding-bottom:30px;
-}
-
-.container h2{
-text-align:center;
-font-size:17px;
-letter-spacing:2px;
-color:#000;
-margin-top:3px;
-text-transform:uppercase;
-}
-
-.container .reset-btn{
-all:unset; 
-height:40px;
-width:160px;
-background:#000;
-color:#FFF;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:3px;
-margin:auto;
-margin-top:18px;
-text-transform:uppercase;
-letter-spacing:1px;
-font-size:12px;
-cursor:pointer;
-}
-
-.container .game{
-width:100%;  
-height:350px;
-margin-top:25px;
-display:flex;
-flex-wrap:wrap;
-gap:7px;
-transform-style:preserve-3d;
-perspective:500px;
-}
-
-.item{
-position:relative; 
-height:74px;
-width:74px;
-background:white;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:25px;
-transition:all .25s;
-transform:rotateY(180deg);
-border:2px solid #000;
-border-radius:3px;
-}
-
-.item.boxOpen{
-transform:rotateY(0deg);
-}
-
-.item::after{
-content:"";  
-position:absolute;
-inset:0;
-background:black;
-transition:all .25s;
-transform:rotateY(0deg);
-backface-visibility:hidden;
-}
-
-.boxOpen::after,.boxMatch::after{
-transform:rotateY(180deg);        
-}
-
-::selection {
-background:rgb(100, 149, 237, 0.8);
-color:white;
-}
-@media only screen and (max-width: 767px) {
-    .menu__btn {
-        top: 5vh;
-        left: 90vw;
-    }
-    #menu__toggle:checked ~ .menu__box {
-        left: 40vw !important;
-    }
-  }
-  .container{
-    margin-top: 5vh;
-    width: 300px;
-  }
-        </style>
-</head>
-
-<body>
   <header>
-    <i class="fa-solid fa-book-open" id="rightNavBtn"></i>
-      <img src="/images/sibol.png" alt="">
-      <div class="hamburger-menu">
-      <input id="menu__toggle" type="checkbox" />
-      <label class="menu__btn" for="menu__toggle">
-          <span></span>
-      </label>
-      <ul class="menu__box">
-          <li><a class="menu__item" href="index.html">Home</a></li>
-          <li><a class="menu__item" href="team.html#aboutPage">SIBOL</a></li>
-          <li><a class="menu__item" href="team.html#teamPage">Team</a></li>
-          <li><a class="menu__item" href="team.html#contactPage">Contact</a></li>
-          
-      </ul>
-  </div>
-  </header>
-<div class="container">
-  <h2>Memory Game</h2> 
-  <div class="game"></div>
-  <button class="reset-btn" onclick="window.location.reload()">Reset Game</button>
+    <img src="/images/sibol.png" alt="">
+    <div class="hamburger-menu">
+    <input id="menu__toggle" type="checkbox" />
+    <label class="menu__btn" for="menu__toggle">
+        <span></span>
+    </label>
+    <ul class="menu__box">
+        <li><a class="menu__item" href="index.html">Home</a></li>
+        <li><a class="menu__item" href="team.html#aboutPage">SIBOL</a></li>
+        <li><a class="menu__item" href="team.html#teamPage">Team</a></li>
+        <li><a class="menu__item" href="team.html#contactPage">Contact</a></li>
+        
+    </ul>
 </div>
-<script>
+</header>
 
-const images = [
-    "https://images.saymedia-content.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cq_auto:eco%2Cw_1200/MTk3MjI5OTczMDA0NjI0OTc5/cute-pet-names.png",
-    "https://www.humanesociety.org/sites/default/files/styles/768x326/public/2020-07/dog-509745.jpg?h=e22bf01e&itok=MGmnQnfa",
-    "https://www.humanesociety.org/sites/default/files/styles/768x326/public/2020-07/dog-509745.jpg?h=e22bf01e&itok=MGmnQnfa",
-    "https://images.saymedia-content.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cq_auto:eco%2Cw_1200/MTk3MjI5OTczMDA0NjI0OTc5/cute-pet-names.png",
-    "https://images.moneycontrol.com/static-mcnews/2023/08/pexels-caio-61372-770x433.jpg?impolicy=website&width=770&height=431",
-    "https://images.moneycontrol.com/static-mcnews/2023/08/pexels-caio-61372-770x433.jpg?impolicy=website&width=770&height=431",
+	<div class="container"> 
+		<div id="dynamic-cards" class="game-container"> 
+			<div class="heading-container">  
+			</div> 
+			<div class="cards-container"> 
+				<div class="card"> 
+					<img
+						src= 
+"https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/gray-background-7131-98db5e6ffc4972baa4087760291cbc3e@1x.jpg"
+						class="outline-image"> 
+					<img id="1"
+						src= 
+"https://www.vedantu.com/seo/content-images/56fbc4e1-3607-4c83-952d-3f18fd19e517.png"
+						alt="HTML Image" class="card-image"> 
+				</div> 
 
-    "https://api.time.com/wp-content/uploads/2017/04/science-says-your-pet-good-your-mental-health.jpg",
-    "https://api.time.com/wp-content/uploads/2017/04/science-says-your-pet-good-your-mental-health.jpg"
-];
+				<div class="card"> 
+					<img
+						src= 
+"https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/gray-background-7131-98db5e6ffc4972baa4087760291cbc3e@1x.jpg"
+						class="outline-image"> 
+					<img id="2"
+						src= 
+"https://biology.mit.edu/wp-content/uploads/2017/12/Actin-microtubules-and-nuclei-labeled-in-cells-by-immunofluorescence_Credit_Wittmann.jpeg"
+						alt="JavaScript Image" class="card-image"> 
+				</div> 
 
-// Shuffle the images
-let shuffleImages = images.sort(() => Math.random() - 0.5);
+				<div class="card"> 
+					<img
+						src= 
+"https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/gray-background-7131-98db5e6ffc4972baa4087760291cbc3e@1x.jpg"
+						class="outline-image"> 
+					<img id="3"
+						src= 
+"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSfoWoMsCdtrG2ohQbq9kFOkY83D3sgBBmyAYVFvNoFZB8WB_B9"
+						alt="CSS Image" class="card-image"> 
+				</div> 
 
-// Replace the emojis with images in the boxes
-for (let i = 0; i < images.length; i++) {
-    let box = document.createElement('div');
-    box.classList.add('item');
+				<div class="card"> 
+					<img
+						src= 
+"https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/gray-background-7131-98db5e6ffc4972baa4087760291cbc3e@1x.jpg"
+						class="outline-image"> 
+					<img id="4"
+						src= 
+"https://biology.mit.edu/wp-content/uploads/2017/12/Actin-microtubules-and-nuclei-labeled-in-cells-by-immunofluorescence_Credit_Wittmann.jpeg"
+						alt="JavaScript Image" class="card-image"> 
+				</div> 
 
-    box.onclick = (e) => {
-        e.target.classList.add('boxOpen');
-        setTimeout(() => {
-            const openBoxes = document.querySelectorAll('.boxOpen');
-            if (openBoxes.length > 1) {
-                const image1 = openBoxes[0].style.backgroundImage;
-                const image2 = openBoxes[1].style.backgroundImage;
-                if (image1 === image2 && openBoxes[0] !== openBoxes[1]) {
-                    openBoxes.forEach(box => box.classList.add('boxMatch'));
+				<div class="card"> 
+					<img
+						src= 
+"https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/gray-background-7131-98db5e6ffc4972baa4087760291cbc3e@1x.jpg"
+						class="outline-image"> 
+					<img id="5"
+						src= 
+"https://www.vedantu.com/seo/content-images/56fbc4e1-3607-4c83-952d-3f18fd19e517.png"
+						alt="HTML Image" class="card-image"> 
+				</div> 
+				<div class="card"> 
+					<img
+						src= 
+"https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/gray-background-7131-98db5e6ffc4972baa4087760291cbc3e@1x.jpg"
+						class="outline-image"> 
+					<img id="6"
+						src= 
+"https://humanbiology.pressbooks.tru.ca/wp-content/uploads/sites/6/h5p/content/101/images/image-5ebaecaf94e0b.png"
+						alt="VUE Image" class="card-image"> 
+				</div> 
+				<div class="card"> 
+					<img
+						src= 
+"https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/gray-background-7131-98db5e6ffc4972baa4087760291cbc3e@1x.jpg"
+						class="outline-image"> 
+					<img id="7"
+						src= 
+"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSfoWoMsCdtrG2ohQbq9kFOkY83D3sgBBmyAYVFvNoFZB8WB_B9"
+						alt="CSS Image" class="card-image"> 
+				</div> 
+				<div class="card"> 
+					<img
+						src= 
+"https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/gray-background-7131-98db5e6ffc4972baa4087760291cbc3e@1x.jpg"
+						class="outline-image"> 
+					<img id="8"
+						src= 
+"https://study.com/cimages/multimages/16/cytokinesis_4508880028065471579388.png"
+						alt="React Image" class="card-image"> 
+				</div> 
 
-                    if (document.querySelectorAll('.boxMatch').length === images.length) {
-                        window.location.reload();
-                    }
-                } else {
-                    openBoxes.forEach(box => box.classList.remove('boxOpen'));
-                }
-            }
-        }, 500);
-    }
-    // Set the background image of the box
-    box.style.backgroundImage = `url(${shuffleImages[i]})`;
-    document.querySelector('.container .game').appendChild(box);
+				<div class="card"> 
+					<img
+						src= 
+"https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/gray-background-7131-98db5e6ffc4972baa4087760291cbc3e@1x.jpg"
+						class="outline-image"> 
+					<img id="9"
+						src= 
+"https://humanbiology.pressbooks.tru.ca/wp-content/uploads/sites/6/h5p/content/101/images/image-5ebaecaf94e0b.png"
+						alt="VUE Image" class="card-image"> 
+				</div> 
+				<div class="card"> 
+					<img
+						src= 
+"https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/gray-background-7131-98db5e6ffc4972baa4087760291cbc3e@1x.jpg"
+						class="outline-image"> 
+					<img id="10"
+						src= 
+"https://d2jx2rerrg6sh3.cloudfront.net/image-handler/picture/2019/8/By_decade3d_-_anatomy_online.jpg"
+						alt="Angular Image" class="card-image"> 
+				</div> 
+				<div class="card"> 
+					<img
+						src= 
+"https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/gray-background-7131-98db5e6ffc4972baa4087760291cbc3e@1x.jpg"
+						class="outline-image"> 
+					<img id="11"
+						src= 
+"https://study.com/cimages/multimages/16/cytokinesis_4508880028065471579388.png"
+						alt="React Image" class="card-image"> 
+				</div> 
+				<div class="card"> 
+					<img
+						src= 
+"https://merriam-webster.com/assets/mw/images/article/art-wap-article-main/gray-background-7131-98db5e6ffc4972baa4087760291cbc3e@1x.jpg"
+						class="outline-image"> 
+					<img id="12"
+						src= 
+"https://d2jx2rerrg6sh3.cloudfront.net/image-handler/picture/2019/8/By_decade3d_-_anatomy_online.jpg"
+						alt="Angular Image" class="card-image"> 
+				</div> 
+			</div> 
+
+			<div class="progress-container"> 
+				<div class="move-counter">Moves: 0</div> 
+				<button id="restart" class="restart-button"> 
+					Restart Game 
+				</button> 
+			</div> 
+		</div> 
+	</div> 
+
+	<script>
+
+const cards = 
+	document.getElementsByClassName('card'); 
+let allImages = document.getElementsByClassName('card-image'); 
+let movesDisplay = document.querySelector('.move-counter'); 
+let toggledCardsArray = []; 
+let move = 0; 
+let winCount = 0; 
+const restart = document.getElementById('restart'); 
+
+const imagesLinkArray = [ 
+	{ 
+		id: 1, 
+		image: 
+'https://d2jx2rerrg6sh3.cloudfront.net/image-handler/picture/2019/8/By_decade3d_-_anatomy_online.jpg', 
+		newAlt: 'Angular Image'
+	}, 
+	{ 
+		id: 2, 
+		image: 
+'https://www.vedantu.com/seo/content-images/56fbc4e1-3607-4c83-952d-3f18fd19e517.png', 
+		newAlt: 'HTML Image'
+	}, 
+	{ 
+		id: 3, 
+		image: 
+'https://biology.mit.edu/wp-content/uploads/2017/12/Actin-microtubules-and-nuclei-labeled-in-cells-by-immunofluorescence_Credit_Wittmann.jpeg', 
+		newAlt: 'JavaScript Image'
+	}, 
+	{ 
+		id: 4, 
+		image: 
+'https://study.com/cimages/multimages/16/cytokinesis_4508880028065471579388.png', 
+		newAlt: 'React Image'
+	}, 
+	{ 
+		id: 5, 
+		image: 
+'https://humanbiology.pressbooks.tru.ca/wp-content/uploads/sites/6/h5p/content/101/images/image-5ebaecaf94e0b.png', 
+		newAlt: 'Vue Image'
+	}, 
+	{ 
+		id: 6, 
+		image: 
+'https://biology.mit.edu/wp-content/uploads/2017/12/Actin-microtubules-and-nuclei-labeled-in-cells-by-immunofluorescence_Credit_Wittmann.jpeg', 
+		newAlt: 'JavaScript Image'
+	}, 
+	{ 
+		id: 7, 
+		image: 
+'https://humanbiology.pressbooks.tru.ca/wp-content/uploads/sites/6/h5p/content/101/images/image-5ebaecaf94e0b.png', 
+		newAlt: 'Vue Image'
+	}, 
+	{ 
+		id: 8, 
+		image: 
+'https://www.vedantu.com/seo/content-images/56fbc4e1-3607-4c83-952d-3f18fd19e517.png', 
+		newAlt: 'HTML Image'
+	}, 
+	{ 
+		id: 9, 
+		image: 
+'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSfoWoMsCdtrG2ohQbq9kFOkY83D3sgBBmyAYVFvNoFZB8WB_B9', 
+		newAlt: 'CSS Image'
+	}, 
+	{ 
+		id: 10, 
+		image: 
+'https://d2jx2rerrg6sh3.cloudfront.net/image-handler/picture/2019/8/By_decade3d_-_anatomy_online.jpg', 
+		newAlt: 'Angular Image'
+	}, 
+	{ 
+		id: 11, 
+		image: 
+'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSfoWoMsCdtrG2ohQbq9kFOkY83D3sgBBmyAYVFvNoFZB8WB_B9', 
+		newAlt: 'CSS Image'
+	}, 
+	{ 
+		id: 12, 
+		image: 
+'https://study.com/cimages/multimages/16/cytokinesis_4508880028065471579388.png', 
+		newAlt: 'React Image'
+	} 
+] 
+
+// function to restart the game 
+const restartGame = () => { 
+	let toggledCard = 
+		document.getElementsByClassName('card toggled'); 
+	imagesLinkArray.sort(() => Math.random() - 0.5); 
+	Object.values(toggledCard).forEach(function (el) { 
+		setTimeout(() => { 
+			el.classList.remove("toggled"); 
+		}, 0); 
+	}) 
+	toggledCardsArray.length = 0; 
+	move = 0; 
+	winCount=0; 
+	movesDisplay.innerText = `Moves: ${move}`; 
+	let allImagesSrc = document.getElementsByClassName('card-image'); 
+	Object.values(allImagesSrc).forEach((el, index)=>{ 
+		el.src = imagesLinkArray[index].image; 
+		el.alt = imagesLinkArray[index].newAlt; 
+		el.id = imagesLinkArray[index].id 
+	}) 
+} 
+restart.addEventListener('click', restartGame); 
+
+//checking for the last clicked and current 
+//clicked cards and applying changes accordingly 
+for (var i = 0; i < cards.length; i++) { 
+	cards[i].addEventListener('click', function () { 
+		this.classList.add("toggled"); 
+		toggledCardsArray.push(this); 
+		let thisImgSrc = this.querySelector('.card-image').src; 
+		let previousImgSrc = 
+		toggledCardsArray[toggledCardsArray.length - 2].querySelector('.card-image').src; 
+		if(thisImgSrc !== previousImgSrc) { 
+			toggledCardsArray.forEach(function (el) { 
+				setTimeout(() => { 
+					el.classList.remove("toggled"); 
+				}, 500); 
+			}) 
+			toggledCardsArray.length = 0; 
+			move++; 
+		} 
+		else{ 
+			toggledCardsArray.length = 0; 
+			move++; 
+			winCount++; 
+		} 
+		movesDisplay.innerText = `Moves: ${move}`; 
+		if(winCount===6){ 
+			setTimeout(()=>{ 
+				alert(`Congratulations!!! You won the game in ${move} moves.`) 
+			}, 300) 
+		} 
+	}) 
 }
 
 
-</script>
-</body>
+  </script> 
+</body> 
 
 </html>

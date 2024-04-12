@@ -1,0 +1,228 @@
+body{ 
+	margin: 0; 
+	padding: 0; 
+	box-sizing: border-box; 
+} 
+
+body {
+    overflow-x: hidden; /* Hide scrollbars */
+}
+
+header{
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    background-color: white;
+    z-index: 2;
+    box-shadow: 0vw 0.5vh 10px #888888;
+}
+
+header img{
+    width: 300px;
+}
+
+#menu__toggle {
+    opacity: 0;
+  }
+  #menu__toggle:checked + .menu__btn > span {
+    transform: rotate(45deg);
+  }
+  #menu__toggle:checked + .menu__btn > span::before {
+    top: 0;
+    transform: rotate(0deg);
+  }
+  #menu__toggle:checked + .menu__btn > span::after {
+    top: 0;
+    transform: rotate(90deg);
+  }
+  #menu__toggle:checked ~ .menu__box {
+    left: 80vw !important;
+  }
+  .menu__btn {
+    position: fixed;
+    top: 5vh;
+    left: 95vw;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .menu__btn > span,
+  .menu__btn > span::before,
+  .menu__btn > span::after {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #5862A3;
+    transition-duration: .25s;
+  }
+  .menu__btn > span::before {
+    content: '';
+    top: -8px;
+  }
+  .menu__btn > span::after {
+    content: '';
+    top: 8px;
+  }
+  .menu__box {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    width: 100vw;
+    height: 100%;
+    margin: 0;
+    padding: 10vh 0;
+    list-style: none;
+    background-color: #F2F2F6;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .4);
+    transition-duration: .25s;
+  }
+  .menu__item {
+    display: block;
+    padding: 2vh 3vw;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 3vh;
+    font-weight: 600;
+    text-decoration: none;
+    transition-duration: .25s;
+  }
+  .menu__item:hover {
+    background-color: #CFD8DC;
+  }
+
+.container{ 
+	display: flex; 
+	align-items: center; 
+	justify-content: center; 
+	height: 100vh; 
+} 
+
+.game-container{ 
+	width: 800px; 
+	padding: 20px; 
+	border-radius: 10px; 
+	row-gap: 15px; 
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; 
+	background-color: whitesmoke;
+    margin-top: 10vh;
+    box-shadow: 0.75vw 1.5vh 0px rgb(136, 136, 136, 0.5);
+} 
+
+.cards-container{ 
+	display: grid; 
+	grid-template-rows: 125px 125px 125px; 
+	grid-template-columns: 200px 200px 200px 200px; 
+	grid-gap: 20px 10px; 
+	place-items: center; 
+} 
+
+.heading-container{ 
+	text-align: center; 
+} 
+
+.gfg-heading{ 
+	color: #0E9D57; 
+} 
+
+.card{ 
+	justify-items: center; 
+	display: flex; 
+	align-items: center; 
+	position: relative; 
+	cursor: pointer; 
+} 
+
+.outline-image{ 
+	position: absolute; 
+	border-radius: 10px; 
+	top: 0; 
+	left: 0; 
+	height: 125px; 
+	width: 125px; 
+} 
+
+.card-image{ 
+	height: 125px; 
+	width: 125px; 
+	transform: rotateY(90deg); 
+	transition: all ease-in 0.25s; 
+	mix-blend-mode: multiply; 
+} 
+
+.progress-container{ 
+	text-align: center; 
+	display: flex; 
+	justify-content: space-around; 
+	width: 100%; 
+	margin: 50px 0 20px 0; 
+} 
+
+.move-counter{ 
+	padding: 10px 20px; 
+	border-radius: 25px; 
+	border: 1px solid #ccc; 
+} 
+
+.restart-button{ 
+	padding: 10px 20px; 
+	background-color: #0E9D57; 
+	border: none; 
+	border-radius: 25px; 
+	color: #fff; 
+	cursor: pointer; 
+} 
+
+.restart-button:hover{ 
+	background-color: transparent; 
+	border: 1px solid #0E9D57; 
+	color: #0E9D57; 
+} 
+
+/* Dynamic classes that are being added by JavaScript */
+.toggled .card-image { 
+	transform: rotateY(0deg); 
+	transition-delay: 0.25s; 
+} 
+
+.item .outline-image { 
+	transition: all ease-in 0.25s; 
+	transition-delay: 0.25s; 
+} 
+	
+.toggled .outline-image { 
+	transform: rotateY(90deg); 
+	transition-delay: 0s; 
+} 
+
+@media screen and (max-width: 767px) { 
+	.game-container{ 
+		width: 100%; 
+	} 
+	
+	.cards-container{ 
+		grid-template-rows: 125px 125px 125px 125px; 
+		grid-template-columns: 33% 33% 33%; 
+		grid-gap: 10px 10px; 
+	} 
+
+	.outline-image{ 
+		height: 100px; 
+		width: 100px; 
+	} 
+	
+	.card-image{ 
+		height: 100px; 
+		width: 100px; 
+	} 
+
+	.progress-container{ 
+		margin: 10px 0 10px 0; 
+	} 
+	
+}
